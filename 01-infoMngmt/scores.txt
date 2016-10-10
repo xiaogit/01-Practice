@@ -1,0 +1,13 @@
+
+stuscr
+100 89 78 
+goodscr
+0 76 23 
+spar
+0 68 25 
+stuall
+0 77 0 
+adad
+0 89 0 
+berth34
+0 75 0 
