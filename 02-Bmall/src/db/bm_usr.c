@@ -95,23 +95,24 @@ int insert_usr(MYSQL * pdb, BM_USR * usr)
 		printf("插入用户\n");
 		sleep(1);
 		
-		memset(sql_stmt,'\0',sizeof(sql_stmt));
-		sprintf(sql_stmt,"set names utf8;");
-		mysql_query(pdb,sql_stmt);
+		memset(sql_stmt, '\0', sizeof(sql_stmt));
+		sprintf(sql_stmt, "set names utf8;");
+		mysql_query(pdb, sql_stmt);
 
-		memset(sql_stmt,'\0',sizeof(sql_stmt));
+		memset(sql_stmt, '\0', sizeof(sql_stmt));
 
-		sprintf(sql_stmt,"insert into Accounts(UserName,Email,Password,Gender,Birthday,CellPhone,Address) values(\
-			\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\',\'%s\');",usr->acnt.name,usr->email,usr->acnt.key,usr->gender,usr->birthday,usr->cellphone,usr->address);
-		if( mysql_query(pdb,sql_stmt))
+		sprintf(sql_stmt, "insert into Accounts(UserName, Email,Password,Gender,Birthday,CellPhone,Address) values(\
+			\'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\', \'%s\');", usr->acnt.name, usr->email, usr->acnt.key, usr->gender, usr->birthday, usr->cellphone, usr->address);
+		if( mysql_query(pdb, sql_stmt))
 		{ 
-			fprintf(stderr,"Error: %s\n %s\n",sql_stmt,mysql_error(pdb));
+			fprintf(stderr, "Error: %s\n %s\n", sql_stmt, mysql_error(pdb));
 			return -1;
 			//			exit(EXIT_FAILURE);
 		}
 		else
 		{
 			//if new account enlisted successfully
+			printf("insert usr success\n");
 			return 0;
 		} 
 	}
@@ -134,20 +135,20 @@ int usr_login(MYSQL * pdb, BM_ACNT * acnt)
 	if(pdb == NULL)     /* mysql_real_connect()执行成功时，返回值为&db的值,失败则返回NULL */
 	{
 
-		fprintf(stderr,"usr_login, Error: %s\n",mysql_error(pdb));
+		fprintf(stderr,"usr_login, Error: %s\n", mysql_error(pdb));
 		//	exit(EXIT_FAILURE);
 		return -1;
 	}
 	else
 	{
-		memset(sql_stmt,'\0',sizeof(sql_stmt));
+		memset(sql_stmt, '\0', sizeof(sql_stmt));
 		sprintf(sql_stmt,"set names utf8;");
-		memset(sql_stmt,'\0',sizeof(sql_stmt));
+		memset(sql_stmt, '\0', sizeof(sql_stmt));
 
-		sprintf(sql_stmt,"select Password from Accounts where UserName =\'%s\';",acnt->name);
-		if( mysql_query(pdb,sql_stmt))
+		sprintf(sql_stmt, "select Password from Accounts where UserName =\'%s\';", acnt->name);
+		if( mysql_query(pdb, sql_stmt))
 		{ 
-			fprintf(stderr,"Error: %s\n %s\n",sql_stmt,mysql_error(pdb));
+			fprintf(stderr, "Error: %s\n %s\n", sql_stmt,mysql_error(pdb));
 			return -1;
 			//			exit(EXIT_FAILURE);
 		}
@@ -166,8 +167,8 @@ int usr_login(MYSQL * pdb, BM_ACNT * acnt)
 					if(row = mysql_fetch_row(query_result))
 					{
 						lengths = mysql_fetch_lengths(query_result);
-						memset(password,'\0',BM_KEY_MAX+1);
-						sprintf(password,"%.*s",(int)lengths[0],row[0]);
+						memset(password, '\0', BM_KEY_MAX+1);
+						sprintf(password, "%.*s", (int)lengths[0], row[0]);
 					}
 					if(strncmp(password,acnt->key,BM_KEY_MAX))//输入与密码比较
 					{

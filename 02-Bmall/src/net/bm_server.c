@@ -359,7 +359,7 @@ int main(int argc,char *argv[])
 				s = read(evlist[j].data.fd, buf, sizeof(BM_MSGHEAD));
 				memcpy(&mHead, buf, sizeof(BM_MSGHEAD));
 				mHead.len = ntohs(mHead.len);
-				s+= read(evlist[j].data.fd, buf+sizeof(BM_MSGHEAD), mHead.len - sizeof(BM_MSGHEAD));
+				s += read(evlist[j].data.fd, buf+sizeof(BM_MSGHEAD), mHead.len - sizeof(BM_MSGHEAD));
 				if(s == -1)
 				{
 					if( errno == ECONNRESET) {

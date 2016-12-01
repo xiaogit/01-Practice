@@ -172,7 +172,7 @@ int on_type_signup_check(MYSQL * conn_db, BM_MSG * pTemp)
 	memcpy(&acnt, pTemp->package+sizeof(BM_MSGHEAD),sizeof(BM_ACNT));
 	//	printf("state %d \n",acnt.state);
 	acnt.state = ntohs(acnt.state);
-	//	printf("state %d \n",acnt.state);
+	printf("state %d, name: %s, key:%s \n",acnt.state,acnt.name,acnt.key);
 
 	if( is_registered(conn_db, &acnt))//用户名已经被注册
 	{
